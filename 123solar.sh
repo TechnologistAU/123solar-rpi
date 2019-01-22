@@ -32,8 +32,12 @@ apt-get -y upgrade
 # Install Components
 apt-get -y install nginx php php-fpm php-cgi php-curl msmtp
 
+PHP_VERSION=$(php -r "echo PHP_VERSION;" | awk -F "." '{printf("%s.%s\n",$1,$2)}')
+PHP_FPM=php$PHP_VERSION_fpm
+
 # nginx/PHP
 cp $GIT_PATH/nginx.conf /etc/nginx/sites-available/default
+sed -i s/php-fpm/$PHP_FPM/g /etc/nginx/sites-available/default
 
 # msmtp
 cp $GIT_PATH/msmtprc /etc/msmtprc
@@ -47,7 +51,7 @@ tar -xzvf ~/123solar*.tar.gz -C /var/www/html
 rm ~/123solar*.tar.gz
 chown -R www-data:www-data /var/www/html/123solar
 wget -P /etc/systemd/system $_123SOLAR_SVC
-sed -i s/php-fpm/php7.0-fpm/g /etc/systemd/system/123solar.service
+sed -i s/php-fpm/$PHP_FPM/g /etc/systemd/system/123solar.service
 
 # Ports
 usermod -a -G dialout www-data
@@ -90,7 +94,7 @@ if [ $_485SOLAR_GET -eq 1 ]; then
 fi
 
 # Exit
-systemctl restart nginx php7.0-fpm
+systemctl restart nginx $PHP_FPM
 systemctl enable 123solar
 systemctl start 123solar
 
