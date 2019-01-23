@@ -44,7 +44,7 @@ sed -i s/php-fpm/$PHP_FPM/g /etc/nginx/sites-available/default
 cp $GIT_PATH/msmtprc /etc/msmtprc
 chmod 600 /etc/msmtprc
 chown www-data:root /etc/msmtprc
-sed -i '/;sendmail_path/a sendmail_path = "/usr/bin/msmtp -C /etc/msmtprc -t"' /etc/php/7.0/fpm/php.ini
+sed -i '/;sendmail_path/a sendmail_path = "/usr/bin/msmtp -C /etc/msmtprc -t"' /etc/php/$PHP_VERSION/fpm/php.ini
 
 # 123Solar
 wget -P ~ $_123SOLAR_URL
