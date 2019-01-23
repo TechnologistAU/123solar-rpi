@@ -32,8 +32,9 @@ apt-get -y upgrade
 # Install Components
 apt-get -y install nginx php php-fpm php-cgi php-curl msmtp
 
+# Get the installed PHP version
 PHP_VERSION=$(php -r "echo PHP_VERSION;" | awk -F "." '{printf("%s.%s\n",$1,$2)}')
-PHP_FPM=php$PHP_VERSION_fpm
+PHP_FPM="php"$PHP_VERSION"-fpm"
 
 # nginx/PHP
 cp $GIT_PATH/nginx.conf /etc/nginx/sites-available/default
