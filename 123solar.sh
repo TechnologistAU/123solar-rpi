@@ -9,6 +9,8 @@ _485SOLAR_GET=1
 
 _123SOLAR_VER=1.8
 _123SOLAR_URL=https://www.123solar.org/downloads/123solar/123solar$_123SOLAR_VER.tar.gz
+_123SOLAR_URL=$(curl -s https://123solar.org/latest_version.php | awk '/"LINK":/ {print substr($2,2,length($2)-3)}')
+
 _123SOLAR_SVC=http://www.123solar.org/downloads/123solar/123solar.service
 _485SOLAR_GET_VER=1.000
 _485SOLAR_GET_URL=http://downloads.sourceforge.net/project/solarget/485solar-get-$_485SOLAR_GET_VER-sources.tgz
